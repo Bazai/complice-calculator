@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Complice Calculator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
     <!-- <script src="main.js"></script> -->
@@ -16,47 +16,56 @@
 <body>
     <h1>Complice Calculator</h1>
     <section>
-        <div class="left"></div>
-        <div class="right">
-            Example:
-            <pre>
-                6) (15) Писать Хэмингвей-утренние страницы
-                6) (10) Трэкать GJV из Morning #1 в Хабитике 
-                1) (2*25) Делать практику 3.4
-                2) (2*25) Дописывать пост про пуровер-кофе с гифками
-                4) (15) Трэкать Morning #2
-                4) (3*25) Созвон с Максом Черепицей
-                4) (10) Тренироваться в keybr.com
-                5) (15+15) Читать Crushing it
-                5) (15) Читать статью
-                5) (10) Фильтровать рассылку
-                &) (3*25) Сходить на вебинар Тиаго Форте в 19:00
+        <div class="row">
+            <div class="col-sm-6">
+                <textarea name="" id="plan" cols="30" rows="10"></textarea>
+                <p>Total:
+                    <span id="total"></span>
+                </p>
+                <p>Total pomos:
+                    <span id="total-pomos"></span>
+                </p>
+            </div>
+            <div class="col-sm-6">
+                Example:
+                <pre>
+6) (15) Писать Хэмингвей-утренние страницы
+6) (10) Трэкать GJV из Morning #1 в Хабитике 
+1) (2*25) Делать практику 3.4
+2) (2*25) Дописывать пост про пуровер-кофе с гифками
+4) (15) Трэкать Morning #2
+4) (3*25) Созвон с Максом Черепицей
+4) (10) Тренироваться в keybr.com
+5) (15+15) Читать Crushing it
+5) (15) Читать статью
+5) (10) Фильтровать рассылку
+&) (3*25) Сходить на вебинар Тиаго Форте в 19:00
             </pre>
+
+            </div>
+
+        </div>
         </div>
     </section>
-    <textarea name="" id="plan" cols="30" rows="10"></textarea>
-    <label for="pomosize"></label>
+    <label for="pomosize">Pomo size</label>
     <input type="number" name="pomo-size" id="pomo-size" value="25">
-    <p>Total:
-        <span id="total">123</span>
-    </p>
 </body>
 <script>
     $(() => {
         const plan = $('#plan');
         plan.on("change")
         plan.bind('input propertychange', e => {
-            console.log("Change", e.target && e.target.value);
-
-            // $("#yourBtnID").hide();
-
-            // if (this.value.length) {
-            //     $("#yourBtnID").show();
-            // }
+            const val = e.target && e.target.value;
+            const sum = val
+                .split("\n")
+                .map((item, i) =>
+                    item.replace(/^.*([\d&]{1,2})\).*(\(.*\)).*$/g, "$2")
+                )
+                .map(item => eval(item))
+                .reduce((a, b) => a + b, 0);
+            $("#total").text(sum);
+            $("#total-pomos").text(Math.ceil(sum / 25));
         });
-
-
-        // console.log(`Plan: ${plan.val()}`);
     });
 </script>
 
