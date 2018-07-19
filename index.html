@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Complice Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <!-- <script src="main.js"></script> -->
+</head>
+
+<body>
+    <h1>Complice Calculator</h1>
+    <section>
+        <div class="left"></div>
+        <div class="right">
+            Example:
+            <pre>
+                6) (15) Писать Хэмингвей-утренние страницы
+                6) (10) Трэкать GJV из Morning #1 в Хабитике 
+                1) (2*25) Делать практику 3.4
+                2) (2*25) Дописывать пост про пуровер-кофе с гифками
+                4) (15) Трэкать Morning #2
+                4) (3*25) Созвон с Максом Черепицей
+                4) (10) Тренироваться в keybr.com
+                5) (15+15) Читать Crushing it
+                5) (15) Читать статью
+                5) (10) Фильтровать рассылку
+                &) (3*25) Сходить на вебинар Тиаго Форте в 19:00
+            </pre>
+        </div>
+    </section>
+    <textarea name="" id="plan" cols="30" rows="10"></textarea>
+    <label for="pomosize"></label>
+    <input type="number" name="pomo-size" id="pomo-size" value="25">
+    <p>Total:
+        <span id="total">123</span>
+    </p>
+</body>
+<script>
+    $(() => {
+        const plan = $('#plan');
+        plan.on("change")
+        plan.bind('input propertychange', e => {
+            console.log("Change", e.target && e.target.value);
+
+            // $("#yourBtnID").hide();
+
+            // if (this.value.length) {
+            //     $("#yourBtnID").show();
+            // }
+        });
+
+
+        // console.log(`Plan: ${plan.val()}`);
+    });
+</script>
+
+</html>
